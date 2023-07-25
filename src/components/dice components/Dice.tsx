@@ -14,7 +14,7 @@ export default function App(): JSX.Element {
   const [image, setImage] = useState(diceImages[0]);
 
   const rollDice = () => {
-    const randomNum = Math.floor(Math.random() * 6) + 1;
+    const randomNum = Math.floor(Math.random() * 6);
     console.log(randomNum + 1);
 
     setImage(diceImages[randomNum]);
