@@ -1,7 +1,11 @@
-import { greet } from "./utils/greet";
+import Dice from "./components/dice components/Dice";
 
 function App(): JSX.Element {
-  return <h1>{greet("World")}</h1>;
+  return (
+    <>
+      <Dice />
+    </>
+  );
 }
 
 export default App;

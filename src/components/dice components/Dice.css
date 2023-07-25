@@ -1,0 +1,21 @@
+h1,
+p {
+  font-family: Lato;
+}
+body {
+  background-color: aquamarine;
+}
+.container {
+  text-align: center;
+  padding: 2rem 2rem;
+  margin: 1rem;
+}
+
+.square {
+  height: 20rem;
+  width: 20rem;
+  background-color: white;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 1rem 1rem;
+}
