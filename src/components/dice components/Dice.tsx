@@ -11,25 +11,55 @@ import Six from "./images/Six.svg";
 export default function App(): JSX.Element {
   const diceImages = [One, Two, Three, Four, Five, Six];
   const [image, setImage] = useState(diceImages[-1]);
-  const [renderedRanNum, setRenderedRanNumber] = useState<number>(0);
+  const [renderedRanNum, setRenderedRanNum] = useState<number>(0);
+  const [heldNum, setHeldNum] = useState<number>(0);
 
-  const rollDice = () => {
+  const handleRollDice = () => {
     const randomNum = Math.floor(Math.random() * 6);
     const dieNum = randomNum + 1;
     setImage(diceImages[randomNum]);
-    setRenderedRanNumber(renderedRanNum + dieNum);
-    console.log("Increasing by", dieNum);
+
+    const rollSum = () => {
+      const sum = renderedRanNum + dieNum;
+      setRenderedRanNum(sum);
+
+      if (dieNum === 1) {
+        setRenderedRanNum(0);
+      }
+    };
+    console.log('Increasing by', dieNum);
+    //console.log('sum equals', renderedRanNum + dieNum)
+    rollSum();
   };
 
+  const handleStartAgain = () => {
+    setRenderedRanNum(0);
+    setHeldNum(0);
+  };
+
+  const handleHoldNum = () => {
+    const score = heldNum + renderedRanNum;
+    setHeldNum(score);
+    setRenderedRanNum(0);
+  }
   return (
     <div>
       <center>
-        <h1>Welcome to this Dice APP!</h1>
+        <h1>Welcome to the pig APP!</h1>
         <div className="container">
+          {heldNum >= 100 && (
+            <>
+              <p> winner! </p>
+              <button onClick={handleStartAgain}>PLAY AGAIN</button>
+            </>
+          )}
           <img className="square" src={image} alt="dice"></img>
         </div>
-        <button onClick={rollDice}>ROLL</button>
+        <button onClick={handleRollDice}>ROLL</button>
+        <button onClick={handleHoldNum}>HOLD</button>
+        <p> YOUR SCORE: {heldNum} </p>
         {renderedRanNum}
+
       </center>
     </div>
   );
