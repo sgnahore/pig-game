@@ -11,7 +11,9 @@ import Six from "./images/Six.svg";
 export default function App(): JSX.Element {
   const diceImages = [One, Two, Three, Four, Five, Six];
   const [turnTotal, setTurnTotal] = useState<number>(0);
-  const [heldScore, setHeldScore] = useState<number>(0);
+  const [heldScoreP1, setHeldScoreP1] = useState<number>(0);
+  const [heldScoreP2, setHeldScoreP2] = useState<number>(0);
+
   const [dieNum, setDieNum] = useState(0);
 
   // const arr = useState(0);
@@ -26,7 +28,7 @@ export default function App(): JSX.Element {
 
     const sum = turnTotal + roll;
     setTurnTotal(sum);
-    console.log({ turnTotal, heldScore, avocado: roll });
+    //console.log({ turnTotal, heldScore, avocado: roll });
     if (roll === 1) {
       setTurnTotal(0);
     }
@@ -36,12 +38,20 @@ export default function App(): JSX.Element {
 
   const handleStartAgain = () => {
     setTurnTotal(0);
-    setHeldScore(0);
+    setHeldScoreP1(0);
+    setHeldScoreP2(0);
+    setDieNum(0);
   };
 
-  const handleHoldNum = () => {
-    const score = heldScore + turnTotal;
-    setHeldScore(score);
+  const handleHoldNumP1 = () => {
+    const score = heldScoreP1 + turnTotal;
+    setHeldScoreP1(score);
+    setTurnTotal(0);
+  };
+
+  const handleHoldNumP2 = () => {
+    const score = heldScoreP2 + turnTotal;
+    setHeldScoreP2(score);
     setTurnTotal(0);
   };
   return (
@@ -49,9 +59,15 @@ export default function App(): JSX.Element {
       <center>
         <h1>Welcome to the pig APP!</h1>
         <div className="container">
-          {heldScore >= 100 && (
+          {heldScoreP1 >= 100 && (
             <>
-              <p> winner! </p>
+              <p> PLAYER 1 WINS! </p>
+              <button onClick={handleStartAgain}>PLAY AGAIN</button>
+            </>
+          )}
+          {heldScoreP2 >= 100 && (
+            <>
+              <p> PLAYER 2 WINS! </p>
               <button onClick={handleStartAgain}>PLAY AGAIN</button>
             </>
           )}
@@ -63,9 +79,11 @@ export default function App(): JSX.Element {
         </div>
         <button onClick={handleRollDice}>ROLL</button>
         <p>current roll: {dieNum}</p>
-        <button onClick={handleHoldNum}>HOLD</button>
-        <p> YOUR SCORE: {heldScore} </p>
-        {turnTotal}
+        <button onClick={handleHoldNumP1}>HOLD</button>
+        <p> PLAYER 1 SCORE: {heldScoreP1} </p>
+        <button onClick={handleHoldNumP2}>HOLD</button>
+        <p> PLAYER 2 SCORE: {heldScoreP2} </p>
+        <p> TURN TOTAL: {turnTotal}</p>
       </center>
     </div>
   );
